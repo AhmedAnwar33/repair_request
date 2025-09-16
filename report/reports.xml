@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <!-- Repair Request -->
+    <record id="report_hr_request_embassy_en" model="ir.actions.report">
+        <field name="name">Repair Request</field>
+        <field name="model">repair.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">repair_request.report_repairrequest</field>
+        <field name="report_file">repair_request.report_repairrequest</field>
+        <field name="print_report_name">'Repair Request - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_repair_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

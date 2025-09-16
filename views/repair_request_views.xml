@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="repair_request_view_form" model="ir.ui.view">
+        <field name="name">repair.request.view.form</field>
+        <field name="model">repair.request</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_start" string="Start" type="object" invisible="state != 'draft'" class="oe_highlight" data-hotkey="q" />
+                    <button name="action_done" string="Done" type="object" invisible="state != 'in_progress'" class="oe_highlight" data-hotkey="k" />
+                    <button name="create_invoice" string="Create Invoice" type="object" invisible="state != 'done'" class="oe_highlight" data-hotkey="k" />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1 class="d-flex">
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="state != 'draft'" />
+                            <field name="device" readonly="state != 'draft'" />
+                            <field name="priority" widget="priority" readonly="state != 'draft'" />
+                            <field name="estimated_cost" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="dateline" readonly="state != 'draft'" />
+                            <field name="start_date" readonly="1"  />
+                            <field name="end_date" readonly="1"  />
+                            <field name="time_spent" readonly="1" />
+                            <field name="invoice_id" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="repair_line_ids" string="Lines">
+                            <field name="repair_line_ids" readonly="state != 'draft'" >
+                                <list create="true" delete="true" edit="true" editable="bottom">
+                                    <field name="product_id" />
+                                    <field name="product_qty" />
+                                    <field name="unit_price" />
+                                    <field name="subtotal" readonly="1" />
+                                </list>
+                            </field>
+                        </page>
+                        <page name="description" string="Problem Description">
+                            <field name="description" readonly="state != 'draft'" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="repair_request_view_list" model="ir.ui.view">
+        <field name="name">repair.request.view.list</field>
+        <field name="model">repair.request</field>
+        <field name="arch" type="xml">
+            <list string="">
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="device" />
+                <field name="estimated_cost" />
+                <field name="invoice_id" />
+                <field name="priority" widget="priority" readonly="1" />
+                <field name="dateline" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="time_spent" />
+                <field name="state" />f
+            </list>
+        </field>
+    </record>
+
+    <record id="repair_request_action" model="ir.actions.act_window">
+        <field name="name">Repair Request</field>
+        <field name="res_model">repair.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new Repair Request
+            </p>
+        </field>
+    </record>
+
+</odoo>

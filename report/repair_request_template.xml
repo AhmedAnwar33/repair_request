@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data >
+        
+        <template id="report_repairrequest_document" name="Repair Request">
+            <t t-call="web.external_layout">
+                <t t-set="o"/>
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row mb-4">
+                        <div t-if="o.name" class="col">
+                            <strong>Reference</strong>
+                            <div t-field="o.name">SO0000</div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <div t-if="o.partner_id">
+                                <strong>Customer</strong>
+                                <div t-field="o.partner_id" />
+                            </div>
+                            <div t-if="o.name">
+                                <strong>Device</strong>
+                                <div t-field="o.device" />
+                            </div>
+                            <div t-if="o.estimated_cost">
+                                <strong>Estimated Cost</strong>
+                                <div t-field="o.estimated_cost" />
+                            </div>
+                            <div t-if="o.invoice_id">
+                                <strong>Invoice</strong>
+                                <div t-field="o.invoice_id" />
+                            </div>
+                            <div t-if="o.priority">
+                                <strong>Priority</strong>
+                                <div t-field="o.priority" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div t-if="o.dateline">
+                                <strong>Dateline</strong>
+                                <div t-field="o.dateline" />
+                            </div>
+                            <div t-if="o.start_date">
+                                <strong>Start Date</strong>
+                                <div t-field="o.start_date" />
+                            </div>
+                            <div t-if="o.end_date">
+                                <strong>End Date</strong>
+                                <div t-field="o.end_date" />
+                            </div>
+                            <div t-if="o.time_spent">
+                                <strong>Time Spent</strong>
+                                <div t-field="o.time_spent" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="o_has_total_table table o_main_table table-borderless">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_name" class="text-start">Product Name</th>
+                                <th name="th_quantity" class="text-end text-nowrap">Quantity</th>
+                                <th name="th_price_unit" class="text-end text-nowrap">Price Unit</th>
+                                <th name="th_subtotal" class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+
+                            <t t-foreach="o.repair_line_ids" t-as="line">
+                                <tr >
+                                    <td name="td_name" class="text-end text-nowrap">
+                                        <span t-field="line.product_id">3</span>
+                                    </td>
+                                    <td name="td_quantity" class="text-end text-nowrap">
+                                        <span t-field="line.product_qty">3</span>
+                                    </td>
+                                    <td name="td_unit_price" class="text-end text-nowrap">
+                                        <span t-field="line.unit_price">3</span>
+                                    </td>
+                                    <td name="td_subtotal" class="text-end text-nowrap">
+                                        <span t-field="line.subtotal">3</span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_repairrequest">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="repair_request.report_repairrequest_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

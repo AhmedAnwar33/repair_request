@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <menuitem
+        id="repair_request_menu"
+        name="Repair Management"
+        web_icon="repair_request,static/description/icon.png"
+        sequence="10"/>
+
+        <menuitem
+            id="repair_request_menu_repair_request"
+            name="Repair Request"
+            parent="repair_request_menu"
+            action="repair_request_action"
+            sequence="20"/>
+</odoo>
